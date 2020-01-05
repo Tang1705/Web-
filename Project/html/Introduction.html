@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../resources/css/introduction/Introduction.css">
+    <link rel="icon" type="images/x-ico" href="../resources/image/logo.ico"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.5.0/tocbot.css">
+    <script src="../javascript/introduction/Introduction.js"></script>
+    <script src="../javascript/introduction/script.js"></script>
+    <title>京沪铁路查询网站</title>
+</head>
+<body>
+<div id="header" class="">
+    <h1 style="height:5em"></h1>
+    <div class="title" style="float:left;">
+        <h1 align="left"
+            style="margin-top: 0.7em;margin-bottom: 0.1em;margin-left:2em;font-family:MyFont;font-size: 64px">
+            京沪铁路查询网站</h1>
+        <h2 align="left"
+            style="margin-top: 0.1em;margin-bottom: 1em;margin-left:6em;font-family:MyFont;font-size: 24px">
+            Website for information of Beijing-Shanghai railway</h2>
+    </div>
+    <nav class="direcor" style="padding-right:4em;padding-top:6em;float: right;">
+        <a href="Home.html" style="font-family: MyFont;font-size: 36px">首页</a>
+        <a href="Introduction.html" style="font-family: MyFont;font-size: 36px;margin-left: 0.5em"><u>简介</u></a>
+    </nav>
+</div>
+<hr size="4" color="#FFBB66" width="100%">
+<div id="main" class="">
+    <div id="right" class="director">
+        <div class="post-toc">
+            <div class="tocbot-list">
+            </div>
+            <div class="tocbot-list-menu">
+                <a class="tocbot-toc-expand" onclick="expand_toc()">全部</a>
+                <a onclick="go_top()">顶端</a>
+                <a onclick="go_bottom()">底部</a>
+            </div>
+        </div>
+    </div>
+    <div id="left" class="content" style="padding-left: 3em;padding-top: 3em">
+        <div id="ltop" class="content">
+            <div id="lleft" class="content" style="padding-top: 1em">
+                <div id="wrap">
+                    <img src="../resources/image/introduction/1.jpg" alt="" class="on">
+                    <img src="../resources/image/introduction/2.jpg" alt="">
+                    <img src="../resources/image/introduction/3.jpg" alt="">
+                    <img src="../resources/image/introduction/4.jpg" alt="">
+                    <img src="../resources/image/introduction/5.jpg" alt="">
+                    <div class="btn">
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <i class="left" id="prev"></i>
+                    <i class="right" id="next"></i>
+                </div>
+            </div>
+            <div id="lright" class="content">
+                <h1 id="TOC-test" style="font-size: 48px">基本信息</h1>
+                <p style="font-family: MyFont;font-size: 24px;font-weight: bolder;text-indent:2em;line-height:35px;padding-top: 0.5em;
+                text-indent:2em">京沪高速铁路（Beijing-Shanghai High-speed
+                    Railway），简称京沪高铁，又名京沪客运专线，是一条连接北京市与上海市的高速铁路，是2016年修订的《中长期铁路网规划
+                    》中“八纵八横”高速铁路主通道之一。</p><br>
+                <p style="font-family: MyFont;font-size: 24px;font-weight: bolder;text-indent:2em;line-height:35px;padding-top: 0.5em;
+                text-indent:2em">京沪高速铁路途经中国的华北地区和华东地区，经北京、天津、上海三个直辖市以及河北、山东、安徽、江苏
+                    四省，连接京津冀和长三角两个经济区域，沿线以平原为主，局部为低山丘陵区，经过海河、黄河、淮河、长江四大水系，所经
+                    区域面积是中国社会经济发展活跃的地区之一，也是中国客货运输较繁忙、增长潜力较大的客运专线。</p>
+            </div>
+
+            <script type="text/javascript">
+                //找到四个图片
+                window.onload = function () {
+                    var oWrap = document.getElementById('wrap');
+                    var aImg = oWrap.getElementsByTagName('img');
+                    var aBtn = oWrap.getElementsByTagName('span');
+                    var oPrev = document.getElementById('prev');
+                    var oNext = document.getElementById('next');
+                    var iNow = 0;
+
+                    function tab() {
+                        for (var i = 0; i < aBtn.length; i++) {//清空所有按钮选中样式以及图片显示样式
+                            aBtn[i].className = '';
+                            aImg[i].className = '';
+                        }
+                        aBtn[iNow].className = 'active';//设置当前按钮选中样式以及当前图片透明度
+                        aImg[iNow].className = 'on';
+                    }
+
+                    setInterval(function () {//每两秒循环变换下一张图片
+                        iNow++;
+                        if (iNow == aBtn.length) iNow = 0;
+                        tab();
+                    }, 2000);
+
+                    for (var i = 0; i < aBtn.length; i++) {
+                        aBtn[i].index = i;//为按钮添加自定义属性（索引）目的是使图片和按钮相对应
+                        //按钮
+                        aBtn[i].οnmοuseοver = function () {
+                            iNow = this.index; //是按钮所控制显示的图片与左右箭头控制显示的图片相对应
+                            tab();
+                        }
+                        //下一个箭头
+                        oNext.onclick = function () {
+                            iNow++;
+                            if (iNow == aImg.length) iNow = 0;
+                            tab();
+                        }
+                        //上一个箭头
+                        oPrev.onclick = function () {
+                            iNow--;
+                            if (iNow == -1) iNow = aImg.length - 1;
+                            tab();
+                        }
+
+                    }
+
+                }
+            </script>
+        </div>
+        <div id="lbottom" class="content">
+            <h1 id="TOC-build-toc" style="font-size: 48px">基本数据</h1>
+            <p style="font-family: MyFont;font-size: 24px;font-weight: bolder;text-indent:2em;line-height:35px;padding-top: 0.5em;
+                text-indent:2em">京沪高速铁路于2008年4月18日正式开工；2011年6月30日，全线正式通车。全长1318千米，设24个车站，设计
+                的最高速度为380千米/小时。截至2017年9月，京沪高速铁路的运营速度350千米/小时。</p><br>
+            <p style="font-family: MyFont;font-size: 24px;font-weight: bolder;text-indent:2em;line-height:35px;padding-top: 0.5em;
+                text-indent:2em">京沪高铁开通初期每天将开行动车组90对，实行时速300公里和250公里两种速度等级混跑的开行模式，研制超过
+                150列时速350公里级别的CRH2C型和CRH3型高速动车组。</p><br>
+            <p style="font-family: MyFont;font-size: 24px;font-weight: bolder;text-indent:2em;line-height:35px;padding-top: 0.5em;
+                text-indent:2em">截至2016年1月，京沪高速铁路获中国发明专利51项、中国实用新型专利114项、中国外观设计专利5项、中国软
+                件著作权8项，中国国家级工法9项，专著18部，论文243篇。2016年1月8日，京沪高速铁路荣获2015年度中国国家科学技术进步特等奖。</p><br>
+        </div>
+    </div>
+</div>
+<h1 style="height: 1.5em"></h1>
+<hr size="4" color="#FFBB66" width="100%">
+<div id="footer" class="">
+    <div class="author" align="center" style="margin-top:5%;">作者 唐麒 刘嘉欣 张雨桐 张钰铎<br>SSE of BJTU</div>
+    <div class="email" align="center"><a href="mailto:17301138@bjtu.edu.cn">联系方式</a></div>
+    <div id="linkweb" align="center"></div>
+    <script>setInterval("linkweb.innerHTML=new Date().toLocaleString()+'    星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
+    </script>
+    <h4 align="center" style="padding-top:1em;padding-bottom:5em;font-family: MyFont;font-size: 24px">声明：本网站仅绘制部分中国地图，不代表完整领土</h4>
+    <h1></h1>
+</div>
+</body>
+</html>
+

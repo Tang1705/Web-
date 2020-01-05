@@ -1,0 +1,563 @@
+/*
+font
+ */
+@font-face {
+    font-family: MyFont;
+    src: url("../../font/chinese.ttf");
+}
+
+h1 {
+    font-family: MyFont, serif;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.main {
+    height: 100%;
+}
+
+#logwindow {
+    position: absolute;
+    right: 130px;
+    top: 100px;
+}
+
+.figure {
+    alignment: left;
+    position: absolute;
+    right: 68em;
+    top: 2em;
+}
+
+/*
+windmill
+ */
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background: #99BBFF;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.wmd {
+    -webkit-transform: scale(.6);
+    position: absolute;
+    top: 150px;
+    left: 200px;
+    perspective: 1000px;
+}
+
+.base {
+    position: absolute;
+    top: 90px;
+    left: 18px;
+}
+
+.blades {
+    width: 350px;
+    height: 350px;
+    left: 10%;
+    top: 10%;
+    z-index: 2;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: 50px;
+
+    animation: spin 6s linear infinite;
+}
+
+.blade1 {
+    background: white;
+    position: absolute;
+    width: 41px;
+    height: 139px;
+    top: -10px;
+    left: 150.5px;
+    transform: rotate(0deg);
+    display: inline-block;
+    background: linear-gradient(135deg, transparent 20px, white 0),
+    linear-gradient(225deg, transparent 20px, white 0),
+    linear-gradient(315deg, transparent 20px, white 0),
+    linear-gradient(45deg, transparent 20px, white 0);
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.blade2 {
+    background: white;
+    position: absolute;
+    width: 41px;
+    height: 139px;
+    top: 105.5px;
+    left: 41px;
+    transform: rotate(-90deg);
+    display: inline-block;
+    background: linear-gradient(135deg, transparent 20px, white 0),
+    linear-gradient(225deg, transparent 20px, white 0),
+    linear-gradient(315deg, transparent 20px, white 0),
+    linear-gradient(45deg, transparent 20px, white 0);
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.blade3 {
+    background: white;
+    position: absolute;
+    width: 41px;
+    height: 139px;
+    top: 105.5px;
+    right: 41px;
+    transform: rotate(-270deg);
+    display: inline-block;
+    background: linear-gradient(135deg, transparent 20px, white 0),
+    linear-gradient(225deg, transparent 20px, white 0),
+    linear-gradient(315deg, transparent 20px, white 0),
+    linear-gradient(45deg, transparent 20px, white 0);
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.blade4 {
+    background: white;
+    position: absolute;
+    width: 41px;
+    height: 139px;
+    bottom: -10px;
+    left: 150.5px;
+    transform: rotate(180deg);
+    display: inline-block;
+    background: linear-gradient(135deg, transparent 20px, white 0),
+    linear-gradient(225deg, transparent 20px, white 0),
+    linear-gradient(315deg, transparent 20px, white 0),
+    linear-gradient(45deg, transparent 20px, white 0);
+    background-position: top left, top right, bottom right, bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.vane1 {
+    width: 1px;
+    height: 350px;
+    left: 175px;
+    background: white;
+    position: absolute;
+    transform: rotate(90deg);
+}
+
+.vane2 {
+    width: 1px;
+    height: 350px;
+    left: 171.5px;
+    background: white;
+    position: absolute;
+    transform: rotate(180deg);
+}
+
+.base .bottom_base {
+    position: absolute;
+    width: 90px;
+    height: 100px;
+    left: 162px;
+    border-right: 16px solid transparent;
+    border-left: 16px solid transparent;
+    border-bottom: 380px solid white;
+    opacity: .8;
+    z-index: -1;
+    top: 42.5px;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+/*
+train
+ */
+
+
+.loader {
+    width: 8em;
+    height: 10em;
+    font-size: 20px;
+    padding-left: 480px;
+    padding-top: 310px;
+}
+
+.train {
+    width: 6em;
+    height: 6em;
+    background: radial-gradient(circle at 20% 80%, currentColor 0.6em, transparent 0.6em),
+    radial-gradient(circle at 80% 80%, currentColor 0.6em, transparent 0.6em),
+    #ffffff;
+    border-radius: 1em;
+    position: relative;
+    left: 1em;
+    color: rgb(217, 229, 242);
+    animation: train-animate 1.5s infinite ease-in-out;
+}
+
+@keyframes train-animate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    25%, 75% {
+        transform: rotate(0.5deg);
+    }
+
+    50% {
+        transform: rotate(-0.5deg);
+    }
+}
+
+.train::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 2.3em;
+    background-color: currentColor;
+    border-radius: 0.4em;
+    top: 1.2em;
+    left: 10%;
+}
+
+.train::after {
+    content: '';
+    position: absolute;
+    width: 25%;
+    height: 0.4em;
+    background-color: currentColor;
+    border-radius: 0.3em;
+    top: 0.4em;
+    left: calc((100% - 25%) / 2);
+}
+
+.track {
+    width: 8em;
+    position: relative;
+}
+
+.track::before,
+.track::after {
+    content: '';
+    position: absolute;
+    width: 0.3em;
+    height: 4em;
+    background-color: #ffffff;
+    border-radius: 0.4em;
+    transform-origin: bottom;
+}
+
+.track::before {
+    left: 0;
+    transform: skewX(-27deg);
+}
+
+.track::after {
+    right: 0;
+    transform: skewX(27deg);
+}
+
+.track span {
+    width: inherit;
+    height: 0.3em;
+    background-color: #ffffff;
+    position: absolute;
+    top: 4em;
+    animation: track-animate 1s linear infinite;
+}
+
+.track span:nth-child(2) {
+    animation-delay: -0.33s;
+}
+
+.track span:nth-child(3) {
+    animation-delay: -0.66s;
+}
+
+@keyframes track-animate {
+    0% {
+        transform: translateY(-0.5em) scaleX(0.9);
+        filter: opacity(0);
+    }
+
+    10%, 90% {
+        filter: opacity(1);
+    }
+
+    100% {
+        transform: translateY(-4em) scaleX(0.5);
+        filter: opacity(0);
+    }
+}
+
+/*
+login window
+*/
+
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+.container {
+    position: absolute;
+    top: 150px;
+    font-size: 1.5em;
+    font-family: MyFont, serif;
+    font-weight: 100;
+    text-align: center;
+    background: #B7BED8;
+    color: #6A79A6;
+    display: inline-block;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.2);
+}
+
+.container .navigation {
+    text-align: center;
+}
+
+.container .navigation ol {
+    list-style: none;
+    background: #B7BED8;
+    position: absolute;
+    padding: 30px 0;
+    width: 600px;
+    z-index: 100;
+    margin-bottom: 30px;
+}
+
+.container .navigation ol li {
+    display: inline-block;
+    margin-right: 27px;
+    font-size: 0.7em;
+    max-width: 20%;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.container .navigation ol li a {
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.container .navigation ol li a.done {
+    opacity: 1;
+}
+
+.container .sign-form {
+    width: 600px;
+    text-align: left;
+    margin: 85px 0 0 0;
+}
+
+.container .sign-form #next-page {
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    background: url("https://jdniki.github.io/signup/images/next-page.svg");
+    background-size: contain;
+}
+
+.container .sign-form #next-page:hover {
+    background: url("https://jdniki.github.io/signup/images/next-pagehover.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions {
+    list-style: none;
+    -webkit-transition: height 0.4s;
+    transition: height 0.4s;
+    width: 88%;
+    display: inline-block;
+    height: 80px;
+}
+
+.container .sign-form .questions li {
+    position: absolute;
+    width: 500px;
+    /*-------------Password ------------------*/
+}
+
+.container .sign-form .questions li span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.container .sign-form .questions li input {
+    width: 100%;
+    font-size: 0.9em;
+    color: #f2f2f2;
+    margin: 0.3em 0 1em 0;
+    border: none;
+    background: none;
+    border-bottom: 3px solid #fff;
+    padding: 0.5em 0.1em;
+    transition: all 0.5s ease;
+}
+
+.container .sign-form .questions li input:focus {
+    outline: none;
+    border-bottom: 3px solid #6A79A6;
+}
+
+.container .sign-form .questions li:not(:first-child) {
+    opacity: 0;
+    margin-top: 150px;
+}
+
+.container .sign-form .questions li #viewpswd {
+    position: absolute;
+    opacity: 0;
+}
+
+.container .sign-form .questions li #viewcfgpswd {
+    position: absolute;
+    opacity: 0;
+}
+
+.container .sign-form .questions li #show-pwd {
+    margin: -2.75em 0em;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.container .sign-form .questions li #show-pwd.view {
+    background: url("https://jdniki.github.io/signup/images/view.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li #show-pwd.hide {
+    background: url("https://jdniki.github.io/signup/images/hide.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li #show-pwd:active,
+.container .sign-form .questions li #show-pwd:focus {
+    background: url("https://jdniki.github.io/signup/images/hide.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li #show-pwd—again {
+    margin: -2.75em 0em;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.container .sign-form .questions li #show-pwd—again.view {
+    background: url("https://jdniki.github.io/signup/images/view.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li #show-pwd—again.hide {
+    background: url("https://jdniki.github.io/signup/images/hide.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li #show-pwd—again:active,
+.container .sign-form .questions li #show-pwd—again:focus {
+    background: url("https://jdniki.github.io/signup/images/hide.svg");
+    background-size: contain;
+}
+
+.container .sign-form .questions li select.country {
+    position: absolute;
+    width: 4.5em;
+    font-size: 0.7em;
+    color: #f2f2f2;
+    height: 70px;
+    background: transparent;
+    border: 1px solid #ccc;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+}
+
+.container .sign-form .questions li #phone {
+    padding-left: 5em;
+}
+
+.container .error-message {
+    color: rgba(207, 0, 0, 0.56);
+    font-size: 14px;
+    margin-top: 10px;
+    padding-bottom: 30px;
+    background: #B7BED8;
+}
+
+::-webkit-input-placeholder {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+:-ms-input-placeholder {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@-webkit-keyframes moveUpFromDown {
+    from {
+        -webkit-transform: translateY(100%);
+    }
+    to {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes moveUpFromDown {
+    from {
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+    }
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+

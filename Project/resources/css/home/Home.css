@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: MyFont;
+    src: url("../../font/chinese.ttf");
+}
+
+body {
+    background: url("../../image/home/background.png") no-repeat fixed bottom right;
+    background-size: 36%;
+}
+
+#header {
+    width: 100%;
+    background: url("../../image/home/head.png") no-repeat;
+    background-size: 100%;
+}
+
+#main {
+    width: 100%;
+    height: 500px;
+}
+
+#mainContainer {
+    width: 75em;
+    height: 50em;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 0.3em;
+    box-shadow: 12px 12px 30px -11.9px rgba(251, 60, 96, 0.35), inset 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+    transition: 0.8s;
+}
+
+#mainContainer:hover {
+    transform: scale(1.1);
+    transition: 0.6s;
+}
+
+.aside {
+    border-top-left-radius: 1.5em;
+    border-bottom-left-radius: 1.5em;
+    border-top-right-radius: 0.1em;
+    border-bottom-right-radius: 0.1em;
+    display: inline-block;
+    filter: drop-shadow(5px 5px 15px #FC3E65);
+}
+
+.cardview {
+    position: absolute;
+    width: 17em;
+    height: 20.2em;
+    top: -12px;
+    left: -5px;
+    border-top-left-radius: 1.5em;
+    border-bottom-left-radius: 1.5em;
+    border-top-right-radius: 0.1em;
+    border-bottom-right-radius: 0.1em;
+    background: linear-gradient(120deg, #fcca6e, #f97e32cc, #FC3E65, #f23236);
+    clip-path: polygon(0 0, 100% 0%, 71% 100%, 0% 100%);
+}
+
+#card-content {
+    width: 500px;
+    height: inherit;
+    box-sizing: border-box;
+    padding: 20px 4px;
+}
+
+#disc {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100%;
+}
+
+#disc > p {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 40px;
+    font-size: 15px;
+    font-weight: normal;
+    color: #e0375a;
+}
+
+.readmore_btn {
+    font-family: 'Roboto', sans-serif;
+    width: 100px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid #9e9e9ed4;
+    outline: 0;
+    float: right;
+    bottom: 0;
+    margin-top: 45px;
+    margin-right: 20px;
+    color: #FC3E65;
+    justify-content: center;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+    cursor: pointer;
+    transition: all .25s;
+}
+
+.readmore_btn:hover {
+    background: #fa3b58;
+    color: #FFFF;
+    box-shadow: none;
+}
+
+
+.btn {
+    padding: 0 10px 0;
+    text-decoration: none;
+    color: #9E9E9E;
+    background: transparent;
+    outline: 0;
+    transform: scale(1.0);
+    transition: 0.6s;
+}
+
+.btn:hover {
+    color: #FC3E65;
+    box-shadow: none;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.footer {
+    width: 100%;
+    height: 10em;
+    padding-bottom: 20em;
+    margin-bottom: 20em;;
+}
+
+.author {
+    font-family: MyFont, serif;
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 35px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+}
+
+.email {
+    font-family: MyFont, serif;
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 80px;
+    align-self: center;
+}
+
+#linkweb {
+    font-family: MyFont, serif;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+a:hover {
+    color: #7a68bb;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+a:active {
+    color: #FFA488;
+    text-decoration: none;
+    font-weight: bolder;
+}

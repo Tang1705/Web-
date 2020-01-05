@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../resources/css/home/Home.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/map/sweetalert.css">
+    <link rel="icon" type="images/x-ico" href="../resources/image/logo.ico"/>
+    <title>京沪铁路查询网站</title>
+    <script type="text/javascript" src="../javascript/map/echarts.min.js"></script>
+    <script type="text/javascript" src="../javascript/map/citymap.js"></script>
+    <script type="text/javascript" src="../javascript/map/jquery.js"></script>
+    <script type="text/javascript" src="../javascript/map/sweetalert-dev.js"></script>
+</head>
+<body>
+<div id="header" class="">
+    <h1 style="height:5em"></h1>
+    <div class="title" style="float:left;">
+        <h1 align="left"
+            style="margin-top: 0.7em;margin-bottom: 0.1em;margin-left:2em;font-family:MyFont;font-size: 64px">
+            京沪铁路查询网站</h1>
+        <h2 align="left"
+            style="margin-top: 0.1em;margin-bottom: 1em;margin-left:6em;font-family:MyFont;font-size: 24px">
+            Website for information of Beijing-Shanghai railway</h2>
+    </div>
+    <nav class="direcor" style="padding-right:4em;padding-top:6em;float: right;">
+        <a href="Home.html" style="font-family: MyFont;font-size: 36px"><u>首页</u></a>
+        <a href="Introduction.html" style="font-family: MyFont;font-size: 36px;margin-left: 0.5em">简介</a>
+    </nav>
+    <div class="xuanfu" style="position: fixed; left:90em">
+            <audio id="music" src="../resources/music/BackgroundMusic.mp3" autoplay="autoplay" loop="loop">你的浏览器不支持audio标签。</audio>
+            <a href="javascript:playPause();"><img src="../resources/image/home/play.png" width="48" height="50" id="music_btn"
+                                                   border="0"></a>
+        <script type="text/javascript" src="http://libs.useso.com/js/jquery/1.7.2/jquery.min.js"></script>
+        <script>
+            function playPause() {
+                var music = document.getElementById('music');
+                var music_btn = document.getElementById('music_btn');
+                if (music.paused) {
+                    music.play();
+                    music_btn.src = '../resources/image/home/play.png';
+                } else {
+                    music.pause();
+                    music_btn.src = '../resources/image/home/pause.png';
+                }
+            }
+        </script>
+    </div>
+</div>
+<hr size="4" color="#FFBB66" width="100%">
+<div id="main" class="">
+    <div id="mainContainer" style="margin-top: 5em;margin-bottom: 20em;">
+    </div>
+</div>
+<h1 style="height: 12.5em"></h1>
+<hr size="4" color="#FFBB66" width="100%">
+<div id="footer" class="">
+    <div class="author" align="center" style="margin-top:5%;">作者 唐麒 刘嘉欣 张雨桐 张钰铎<br>SSE of BJTU</div>
+    <div class="email" align="center"><a href="mailto:17301138@bjtu.edu.cn">联系方式</a></div>
+    <div id="linkweb" align="center"></div>
+    <script>setInterval("linkweb.innerHTML=new Date().toLocaleString()+'    星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
+    </script>
+    <h4 align="center" style="padding-top:1em;padding-bottom:5em;font-family: MyFont;font-size: 24px">声明：本网站仅绘制部分中国地图，不代表完整领土</h4>
+    <h1></h1>
+</div>
+<script type="text/javascript">
+    function area(name, color) {
+        return {
+            name: name,
+            selected: true,
+            itemStyle: {
+                emphasis: {
+                    areaColor: color,
+                    borderColor: "#B0E0E6",
+                    borderWidth: 1
+                }
+            }
+        };
+    }
+
+    const geodata1 = [{
+        name: '沧州',   //河北
+        value: [116.84, 38.30],
+    }, {
+        name: '德州',   //江苏
+        value: [116.36, 37.44]
+    }, {
+        name: '北京',    //北京
+        value: [116.46, 39.92]
+    }, {
+        name: '天津',     //天津
+        value: [117.20, 39.13]
+    }, {
+        name: '上海',       //上海
+        value: [121.48, 31.22]
+    }, {
+        name: '济南',   //山东
+        value: [116.75, 36.55]
+    }, {
+        name: '泰安',   //安徽
+        value: [117.09, 36.20]
+    }, {
+        name: '济南',   //山东
+        value: [116.75, 36.55]
+    }, {
+        name: '曲阜',   //山东
+        value: [116.99, 35.58]
+    }, {
+        name: '滕州',   //山东
+        value: [117.17, 35.11]
+    }, {
+        name: '枣庄',   //山东
+        value: [117.57, 34.86]
+    }, {
+        name: '徐州',   //山东
+        value: [117.29, 34.20]
+    }, {
+        name: '宿州',   //山东
+        value: [116.96, 33.65]
+    }, {
+        name: '蚌埠',   //山东
+        value: [117.39, 32.92]
+    }, {
+        name: '定远',   //山东
+        value: [117.12, 32.12]
+    }, {
+        name: '滁州',   //山东
+        value: [118.32, 32.30]
+    }, {
+        name: '南京',   //山东
+        value: [118.79, 32.06]
+    }, {
+        name: '镇江',   //山东
+        value: [119.44, 32.20]
+    }, {
+        name: '丹阳',   //山东
+        value: [119.60, 32.01]
+    }, {
+        name: '常州',   //山东
+        value: [119.97, 31.81]
+    }, {
+        name: '无锡',   //山东
+        value: [120.31, 31.49]
+    }, {
+        name: '苏州',   //山东
+        value: [120.58, 31.30]
+    }, {
+        name: '昆山',   //山东
+        value: [120.98, 31.38]
+    }];
+    $.get('../data/china.json', function (chJson) {
+        echarts.registerMap('中国', chJson);
+        option = {
+            tooltip: {
+                show: true,
+                trigger: 'item',
+                hideDelay: 4000,
+                formatter: function (d) {
+                    switch (d.name) {
+                        case('北京'):
+                            return '北京南站';
+                        case('廊坊'):
+                            return '廊坊站';
+                        case('天津'):
+                            return '天津西站';
+                        case('沧州'):
+                            return '沧州西站';
+                        case('德州'):
+                            return '德州东站';
+                        case('济南'):
+                            return '济南西站';
+                        case('泰安'):
+                            return '泰安站';
+                        case('曲阜'):
+                            return '曲阜东站';
+                        case('滕州'):
+                            return '滕州东站';
+                        case('枣庄'):
+                            return '枣庄站';
+                        case('徐州'):
+                            return '徐州东站';
+                        case('宿州'):
+                            return '宿州东站';
+                        case('蚌埠'):
+                            return '蚌埠南站';
+                        case('定远'):
+                            return '定远站';
+                        case('滁州'):
+                            return '滁州站';
+                        case('南京'):
+                            return '南京南站';
+                        case('镇江'):
+                            return '镇江南站';
+                        case('丹阳'):
+                            return '丹阳北站';
+                        case('常州'):
+                            return '常州北站';
+                        case('无锡'):
+                            return '无锡东站';
+                        case('苏州'):
+                            return '苏州北站';
+                        case('昆山'):
+                            return '昆山南站';
+                        case('上海'):
+                            return '上海虹桥站';
+                    }
+                }
+            },
+            geo: {
+                map: '中国',
+                center: [117, 36],
+                zoom: 3.4,
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: true,
+                zlevel: 1,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#ffffff',
+                        borderColor: '#3B5077'
+                    },
+                    emphasis: {
+                        areaColor: 'rgba(140,175,240,0.73)'
+                    }
+                },
+                regions: [area('河北', '#9999CC'),  //河北
+                    area('江苏', '#9999CC'),     //江苏
+                    area('安徽', '#9999CC'),    //安徽
+                    area('北京', '#9999CC'),     //北京
+                    area('天津', '#9999CC'),      //天津
+                    area('上海', '#9999CC'),        //上海
+                    area('山东', '#9999CC')       //山东
+                ]
+            },
+            series: [{
+                type: 'lines',
+                coordinateSystem: 'geo',
+                symbol: ['none', 'triangle'],
+                zlevel: 2,
+                effect: {
+                    show: true,
+                    symbol: 'roundRect',
+                    period: 2,
+                    delay: 100,
+                    trailLength: 0.6,
+                    symbolSize: 6
+                },
+                // lineStyle: {
+                //     colors: "#452249",
+                //     type: 'solid',
+                //     width: 3,
+                //     shadowBlur: 10,
+                //     // opacity: 0.8,
+                //     //  curveness: 0.2
+                // },
+                lineStyle: {
+                    normal: {
+                        color: {
+                            type: 'solid',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: '#983e9c'
+                            }, {
+                                offset: 1,
+                                color: '#cbb0e3'
+                            }],
+                            globalCoord: false
+                        },
+                        //   width: 1,
+                        opacity: 0.8,
+                        //type: 'dotted',
+                        // curveness: 0.2,
+                    }
+                },
+                data: [{
+                    coords: [ //    北京南站--廊坊站
+                        [116.46, 39.92],
+                        [116.70, 39.52]
+                    ]
+                }, {
+                    coords: [ //     廊坊---天津南站
+                        [116.70, 39.52],
+                        [117.19, 39.13]
+                    ]
+                }, {
+                    coords: [ //sz-中山     天津南--沧州西
+                        [117.19, 39.13],
+                        [116.86, 38.30]
+                    ]
+                }, {
+                    coords: [ //gz-佛山   沧州西---德州东
+                        [116.86, 38.30],
+                        [116.36, 37.44]
+                    ]
+                }, {
+                    coords: [ //fs-江门      dz--济南
+                        [116.36, 37.44],
+                        [116.75, 36.55]
+                    ]
+                }, {
+                    coords: [ //zs-江门        jn---泰安
+                        [116.75, 36.55],
+                        [117.09, 36.20]
+                    ]
+                }, {
+                    coords: [ //jm-阳江      ta---曲阜
+                        [117.09, 36.20],
+                        [116.99, 35.58]
+                    ]
+                }, {
+                    coords: [ //yj-茂名      qf---滕州东
+                        [116.99, 35.58],
+                        [117.17, 35.11]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      tz--枣庄
+                        [117.17, 35.11],
+                        [117.57, 34.86]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      zz--徐州
+                        [117.57, 34.86],
+                        [117.29, 34.20]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      xz--宿州
+                        [117.29, 34.20],
+                        [116.96, 33.65]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      sz--蚌埠
+                        [116.96, 33.65],
+                        [117.39, 32.92]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      bb--定远
+                        [117.39, 32.92],
+                        [117.12, 32.12]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      dy--滁州
+                        [117.12, 32.12],
+                        [118.32, 32.30]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      cz--南京南
+                        [118.32, 32.30],
+                        [118.79, 32.06]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      nj---镇江南
+                        [118.79, 32.06],
+                        [119.44, 32.20]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      zj---丹阳北
+                        [119.44, 32.20],
+                        [119.60, 32.01]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      dy---常州
+                        [119.60, 32.01],
+                        [119.97, 31.81]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      cz---无锡
+                        [119.97, 31.81],
+                        [120.31, 31.49]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      wx---苏州北
+                        [120.31, 31.49],
+                        [120.58, 31.30]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      sz----昆山南
+                        [120.58, 31.30],
+                        [120.98, 31.38]
+                    ]
+                }, {
+                    coords: [ //mm-湛江      ks---上海虹桥
+                        [120.98, 31.38],
+                        [121.48, 31.22]
+                    ]
+                }
+                ]
+            }, {
+                type: 'lines',
+                coordinateSystem: 'geo',
+                symbol: ['none', 'triangle'],
+                zlevel: 2,
+                effect: {
+                    show: true,
+                    symbol: 'roundRect',
+                    period: 1.5,
+                    delay: 100,
+                    trailLength: 0.6,
+                    symbolSize: 6
+                },
+            },
+                {
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    showEffectOn: 'render',
+                    zlevel: 3,
+                    symbol: 'circle',
+                    symbolSize: 5,
+                    rippleEffect: {
+                        brushType: 'stroke',
+                        period: 5,
+                        scale: 7
+                    },
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            offset: [1, 6],
+                            show: true,
+                            textStyle: {
+                                color: "#b200de"
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            show: true,
+                            color: '#B200DE'
+                        }
+                    },
+                    data: geodata1
+                }
+            ]
+        };
+        var myChart = echarts.init(document.getElementById('mainContainer'));
+        myChart.setOption(option);
+        myChart.on("click", function (param) {
+            if (param.data.name === "北京") {
+                swal({
+                    title: "<small style='font-family: MyFont'>北京南站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   起点站        </th><th>12：20</th></tr>" +
+                        "<tr><th>G133</th><th>   起点站        </th><th>12：50</th></tr>" +
+                        "<tr><th>G135</th><th>   起点站        </th><th>13：05</th></tr>" +
+                        "<tr><th>G137</th><th>   起点站        </th><th>13：35</th></tr>" +
+                        "<tr><th>G139</th><th>   起点站        </th><th>13：45</th></tr>" +
+                        "<tr><th>G3  </th><th>   起点站        </th><th>14：00</th></tr>" +
+                        "<tr><th>G141</th><th>   起点站        </th><th>14：10</th></tr>" +
+                        "<tr><th>G145</th><th>   起点站        </th><th>14：35</th></tr>" +
+                        "<tr><th>G11 </th><th>   起点站        </th><th>15：00</th></tr>" +
+                        "<tr><th>G147</th><th>   起点站        </th><th>15：50</th></tr>" +
+                        "<tr><th>G149</th><th>   起点站        </th><th>16：25</th></tr>" +
+                        "<tr><th>G169</th><th>   起点站        </th><th>16：40</th></tr>" +
+                        "<tr><th>G151</th><th>   起点站        </th><th>16：45</th></tr>" +
+                        "<tr><th>G13 </th><th>   起点站        </th><th>17：00</th></tr>" +
+                        "<tr><th>G153</th><th>   起点站        </th><th>17：16</th></tr>" +
+                        "<tr><th>G157</th><th>   起点站        </th><th>17：36</th></tr>" +
+                        "<tr><th>G159</th><th>   起点站        </th><th>17：45</th></tr>" +
+                        "<tr><th>G15 </th><th>   起点站        </th><th>18：00</th></tr>" +
+                        "<tr><th>G17 </th><th>   起点站        </th><th>19：00</th></tr>" +
+                        "<tr><th>G21 </th><th>   起点站        </th><th>19：08</th></tr>" +
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+            } else if (param.data.name === "天津") {
+                swal({
+                    title: "<small style='font-family: MyFont'>天津西站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G133</th><th>   13：25      </th><th>13：27</th></tr>"+
+                        "<tr><th>G147</th><th>   16：24      </th><th>16：30</th></tr>"+
+                        "<tr><th>G15 </th><th>   18：31      </th><th>18：33</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+            } else if (param.data.name === "沧州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>沧州西站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>  13：21       </th><th>13：14</th></tr>"+
+                        "<tr><th>G133</th><th>  13：49       </th><th>13：55</th></tr>"+
+                        "<tr><th>G139</th><th>  14：36       </th><th>14：46</th></tr>"+
+                        "<tr><th>G145</th><th>  15：26       </th><th>15：28</th></tr>"+
+                        "<tr><th>G147</th><th>  16：53       </th><th>16：55</th></tr>"+
+                        "<tr><th>G149</th><th>  17：19       </th><th>17：21</th></tr>"+
+                        "<tr><th>G151</th><th>  17：36       </th><th>17：46</th></tr>"+
+                        "<tr><th>G153</th><th>  18：07       </th><th>18：10</th></tr>"+
+                        "<tr><th>G159</th><th>  18：38       </th><th>18：54</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "德州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>德州东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G133</th><th>   14：21      </th><th>14：23</th></tr>"+
+                        "<tr><th>G135</th><th>   14：26      </th><th>14：28</th></tr>"+
+                        "<tr><th>G137</th><th>   14：49      </th><th>14：51</th></tr>"+
+                        "<tr><th>G139</th><th>   15：13      </th><th>15：15</th></tr>"+
+                        "<tr><th>G141</th><th>   15：23      </th><th>15：25</th></tr>"+
+                        "<tr><th>G147</th><th>   17：21      </th><th>17：23</th></tr>"+
+                        "<tr><th>G149</th><th>   17：48      </th><th>17：50</th></tr>"+
+                        "<tr><th>G169</th><th>   17：57      </th><th>18：06</th></tr>"+
+                        "<tr><th>G157</th><th>   18：56      </th><th>19：02</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "济南") {
+                swal({
+                    title: "<small style='font-family: MyFont'>济南西站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   14：00      </th><th>14：02</th></tr>"+
+                        "<tr><th>G133</th><th>   14：47      </th><th>14：50</th></tr>"+
+                        "<tr><th>G135</th><th>   14：52      </th><th>14：54</th></tr>"+
+                        "<tr><th>G137</th><th>   15：15      </th><th>15：17</th></tr>"+
+                        "<tr><th>G3  </th><th>   15：22      </th><th>15：24</th></tr>"+
+                        "<tr><th>G139</th><th>   15：39      </th><th>15：41</th></tr>"+
+                        "<tr><th>G141</th><th>   15：49      </th><th>15：51</th></tr>"+
+                        "<tr><th>G11 </th><th>   16：22      </th><th>16：24</th></tr>"+
+                        "<tr><th>G145</th><th>   16：14      </th><th>16：32</th></tr>"+
+                        "<tr><th>G147</th><th>   17：47      </th><th>17：51</th></tr>"+
+                        "<tr><th>G149</th><th>   18：14      </th><th>18：17</th></tr>"+
+                        "<tr><th>G13 </th><th>   18：22      </th><th>18：24</th></tr>"+
+                        "<tr><th>G169</th><th>   18：30      </th><th>18：37</th></tr>"+
+                        "<tr><th>G151</th><th>   18：39      </th><th>18：41</th></tr>"+
+                        "<tr><th>G153</th><th>   18：56      </th><th>18：58</th></tr>"+
+                        "<tr><th>G15 </th><th>   19：30      </th><th>19：32</th></tr>"+
+                        "<tr><th>G157</th><th>   19：26      </th><th>19：38</th></tr>"+
+                        "<tr><th>G159</th><th>   19：40      </th><th>19：43</th></tr>"+
+                        "<tr><th>G21 </th><th>   20：30      </th><th>20：32</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "泰安") {
+
+                swal({
+                    title: "<small style='font-family: MyFont'>泰安站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G101</th><th>   08:58      </th><th>09:00</th></tr>"+
+                        "<tr><th>G103</th><th>   09:02      </th><th>09:04</th></tr>"+
+                        "<tr><th>G111</th><th>   10:35      </th><th>10:40</th></tr>"+
+                        "<tr><th>G137</th><th>   15：34      </th><th>15：42</th></tr>"+
+                        "<tr><th>G141</th><th>   16：08      </th><th>16：10</th></tr>"+
+                        "<tr><th>G149</th><th>   18：34      </th><th>18：40</th></tr>"+
+                        "<tr><th>G151</th><th>   18：58      </th><th>19：00</th></tr>"+
+                        "<tr><th>G153</th><th>   19：15      </th><th>19：17</th></tr>"+
+                        "<tr><th>G157</th><th>   19：55      </th><th>19：57</th></tr>"+
+                        "<tr><th>G159</th><th>   20：00      </th><th>20：02</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "曲阜") {
+                swal({
+                    title: "<small style='font-family: MyFont'>曲阜东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G135</th><th>   15：26      </th><th> 15：29</th></tr>"+
+                        "<tr><th>G169</th><th>   19：09      </th><th> 19：11</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "滕州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>滕州东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>  14：45       </th><th>14：57</th></tr>"+
+                        "<tr><th>G139</th><th>  16：24       </th><th>16：26</th></tr>"+
+                        "<tr><th>G149</th><th>  19：11       </th><th>19：13</th></tr>"+
+                        "<tr><th>G151</th><th>  19：31       </th><th>19：33</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "枣庄") {
+                swal({
+                    title: "<small style='font-family: MyFont'>枣庄站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>    14：59     </th><th>15：01</th></tr>"+
+                        "<tr><th>G147</th><th>    18：41     </th><th>18：45</th></tr>"+
+                        "<tr><th>G169</th><th>    19：34     </th><th>19：36</th></tr>"+
+                        "<tr><th>G159</th><th>    10：40     </th><th>20：42</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "徐州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>徐州东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   15：19      </th><th>15：31</th></tr>"+
+                        "<tr><th>G137</th><th>   16：33      </th><th>16：36</th></tr>"+
+                        "<tr><th>G139</th><th>   16：51      </th><th>16：53</th></tr>"+
+                        "<tr><th>G141</th><th>   17：01      </th><th>17：03</th></tr>"+
+                        "<tr><th>G149</th><th>   19：38      </th><th>19：40</th></tr>"+
+                        "<tr><th>G169</th><th>   19：54      </th><th>19：56</th></tr>"+
+                        "<tr><th>G151</th><th>   19：58      </th><th>20：00</th></tr>"+
+                        "<tr><th>G153</th><th>   20：08      </th><th>20：10</th></tr>"+
+                        "<tr><th>G157</th><th>   20：48      </th><th>20：50</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+
+            } else if (param.data.name === "宿州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>宿州东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G135</th><th>   16：19      </th><th>16：21</th></tr>"+
+                        "<tr><th>G149</th><th>   19：59      </th><th>20：04</th></tr>"+
+                        "<tr><th>G159</th><th>   21：14      </th><th>21：28</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "蚌埠") {
+
+                swal({
+                    title: "<small style='font-family: MyFont'>蚌埠南站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G133</th><th>   16：25      </th><th>16：27</th></tr>"+
+                        "<tr><th>G135</th><th>   16：44      </th><th>16：49</th></tr>"+
+                        "<tr><th>G139</th><th>   17：30      </th><th>17：35</th></tr>"+
+                        "<tr><th>G141</th><th>   17：40      </th><th>17：50</th></tr>"+
+                        "<tr><th>G149</th><th>   20：27      </th><th>20：33</th></tr>"+
+                        "<tr><th>G151</th><th>   20：37      </th><th>20：42</th></tr>"+
+                        "<tr><th>G153</th><th>   20：47      </th><th>20：55</th></tr>"+
+                        "<tr><th>G159</th><th>   21：51      </th><th>21：57</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+            } else if (param.data.name === "定远") {
+                swal({
+                    title: "<small style='font-family: MyFont'>定远站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G139</th><th>    17：51     </th><th>17：57</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "滁州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>滁州站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   16：32     1</th><th>6：34</th></tr>"+
+                        "<tr><th>G139</th><th>   18：15     1</th><th>8：17</th></tr>"+
+                        "<tr><th>G141</th><th>   18：19     1</th><th>8：21</th></tr>"+
+                        "<tr><th>G145</th><th>   18：40     1</th><th>8：42</th></tr>"+
+                        "<tr><th>G147</th><th>   19：59     2</th><th>0：09</th></tr>"+
+                        "<tr><th>G151</th><th>   21：11     2</th><th>1：18</th></tr>"+
+                        "<tr><th>G153</th><th>   21：24     2</th><th>1：26</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "南京") {
+                swal({
+                    title: "<small style='font-family: MyFont'>南京南站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   16：51     1</th><th>6：54</th></tr>"+
+                        "<tr><th>G133</th><th>   17：09     1</th><th>7：13</th></tr>"+
+                        "<tr><th>G3  </th><th>     17：23    </th><th> 17：25</th></tr>"+
+                        "<tr><th>G135</th><th>   17：30     1</th><th>7：32</th></tr>"+
+                        "<tr><th>G137</th><th>   17：50     1</th><th>7：55</th></tr>"+
+                        "<tr><th>G11 </th><th>    18：21     </th><th>18：23</th></tr>"+
+                        "<tr><th>G139</th><th>   18：34     1</th><th>8：36</th></tr>"+
+                        "<tr><th>G141</th><th>   18：38     1</th><th>8：40</th></tr>"+
+                        "<tr><th>G145</th><th>   19：00     1</th><th>9：05</th></tr>"+
+                        "<tr><th>G13 </th><th>    20：22     </th><th>20：24</th></tr>"+
+                        "<tr><th>G147</th><th>   20：26     2</th><th>0：28</th></tr>"+
+                        "<tr><th>G149</th><th>   21：15     2</th><th>1：18</th></tr>"+
+                        "<tr><th>G169</th><th>   21：11     2</th><th>1：13</th></tr>"+
+                        "<tr><th>G15 </th><th>    21：32     </th><th>21：34</th></tr>"+
+                        "<tr><th>G151</th><th>   21：36     2</th><th>1：40</th></tr>"+
+                        "<tr><th>G153</th><th>   21：43     2</th><th>1：45</th></tr>"+
+                        "<tr><th>G157</th><th>   22：05     2</th><th>2：07</th></tr>"+
+                        "<tr><th>G17 </th><th>    22：13     </th><th>22：15</th></tr>"+
+                        "<tr><th>G159</th><th>   22：38     2</th><th>2：40</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+
+            } else if (param.data.name === "镇江") {
+                swal({
+                    title: "<small style='font-family: MyFont'>镇江南站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G135</th><th>    17：51     </th><th> 17：53</th></tr>"+
+                        "<tr><th>G141</th><th>    19：00     </th><th> 19：02</th></tr>"+
+                        "<tr><th>G145</th><th>    19：24     </th><th> 19：26</th></tr>"+
+                        "<tr><th>G147</th><th>    20：48     </th><th> 20：53</th></tr>"+
+                        "<tr><th>G149</th><th>    21：37     </th><th> 21：39</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "丹阳") {
+                swal({
+                    title: "<small style='font-family: MyFont'>丹阳北站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>    17：19     </th><th>17：21</th></tr>"+
+                        "<tr><th>G139</th><th>    19：01     </th><th>19：03</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "常州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>常州北站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G137</th><th>   18：28      </th><th> 18：30</th></tr>"+
+                        "<tr><th>G141</th><th>   19：19      </th><th> 19：21</th></tr>"+
+                        "<tr><th>G151</th><th>   22：13      </th><th> 22：15</th></tr>"+
+                        "<tr><th>G153</th><th>   22：17      </th><th> 22：23</th></tr>"+
+                        "<tr><th>G157</th><th>   22：39      </th><th> 22：45</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "无锡") {
+                swal({
+                    title: "<small style='font-family: MyFont'>无锡东站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>   17：45      </th><th>17：47</th></tr>"+
+                        "<tr><th>G135</th><th>   18：24      </th><th>18：29</th></tr>"+
+                        "<tr><th>G139</th><th>   19：27      </th><th>19：29</th></tr>"+
+                        "<tr><th>G147</th><th>   21：22      </th><th>21：24</th></tr>"+
+                        "<tr><th>G169</th><th>   21：57      </th><th>21：59</th></tr>"+
+                        "<tr><th>G153</th><th>   22：40      </th><th>22：42</th></tr>"+
+                        "<tr><th>G21 </th><th>    23：08     </th><th> 23：10</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "苏州") {
+                swal({
+                    title: "<small style='font-family: MyFont'>苏州北站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G133</th><th>    18：02     </th><th>18：09</th></tr>"+
+                        "<tr><th>G137</th><th>    18：52     </th><th>18：54</th></tr>"+
+                        "<tr><th>G141</th><th>    19：43     </th><th>19：45</th></tr>"+
+                        "<tr><th>G145</th><th>    20：08     </th><th>20：10</th></tr>"+
+                        "<tr><th>G147</th><th>    21：35     </th><th>21：37</th></tr>"+
+                        "<tr><th>G149</th><th>    22：24     </th><th>22：26</th></tr>"+
+                        "<tr><th>G169</th><th>    22：10     </th><th>22：18</th></tr>"+
+                        "<tr><th>G151</th><th>    22：37     </th><th>22：39</th></tr>"+
+                        "<tr><th>G13 </th><th>     21：09    </th><th> 21：11</th></tr>"+
+                        "<tr><th>G157</th><th>    23：07     </th><th>23：09</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "昆山") {
+                swal({
+                    title: "<small style='font-family: MyFont'>昆山南站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G133</th><th>   18：21     1</th><th>8：23</th></tr>"+
+                        "<tr><th>G139</th><th>   19：46     1</th><th>9：48</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+            } else if (param.data.name === "上海") {
+                swal({
+                    title: "<small style='font-family: MyFont'>上海虹桥站列车信息</small>!",
+                    text: "<div style='width:100%; height:100px; overflow-y:scroll;overflow-x:hidden;font-family: MyFont'>" +
+                        " <table border='1' rules='all' style='width:100%; height:100%; text-align:center'>" +
+                        "<tr><th>车次</th><th>到达时间</th><th>出发时间</th></tr>" +
+                        "<tr><th>G131</th><th>    18：16     </th><th>终点站</th></tr>"+
+                        "<tr><th>G3  </th><th>      18：28   </th><th>  终点站</th></tr>"+
+                        "<tr><th>G133</th><th>    18：40     </th><th>终点站</th></tr>"+
+                        "<tr><th>G135</th><th>    18：59     </th><th>终点站</th></tr>"+
+                        "<tr><th>G137</th><th>    19：17     </th><th>终点站</th></tr>"+
+                        "<tr><th>G11 </th><th>     19：28    </th><th> 终点站   </th></tr>"+
+                        "<tr><th>G139</th><th>    20：05     </th><th>终点站</th></tr>"+
+                        "<tr><th>G141</th><th>    20：09     </th><th>终点站</th></tr>"+
+                        "<tr><th>G145</th><th>    20：33     </th><th>终点站</th></tr>"+
+                        "<tr><th>G13 </th><th>     21：36    </th><th> 终点站 </th></tr>"+
+                        "<tr><th>G147</th><th>    22：00     </th><th>终点站</th></tr>"+
+                        "<tr><th>G149</th><th>    22：49     </th><th>终点站</th></tr>"+
+                        "<tr><th>G169</th><th>    22：42     </th><th>终点站</th></tr>"+
+                        "<tr><th>G15 </th><th>     22：43    </th><th> 终点站</th></tr>"+
+                        "<tr><th>G151</th><th>    23：02     </th><th>终点站</th></tr>"+
+                        "<tr><th>G153</th><th>    23：11     </th><th>终点站</th></tr>"+
+                        "<tr><th>G17 </th><th>     23：18    </th><th> 终点站</th></tr>"+
+                        "<tr><th>G157</th><th>    23：32     </th><th>终点站</th></tr>"+
+                        "<tr><th>G21 </th><th>     23：40    </th><th> 终点站</th></tr>"+
+                        "<tr><th>G159</th><th>    23：48     </th><th>终点站</th></tr>"+
+                        "</table>" +
+                        "</div>",
+                    html: true
+                });
+
+
+            }
+
+        });
+    });
+</script>
+</body>
+</html>

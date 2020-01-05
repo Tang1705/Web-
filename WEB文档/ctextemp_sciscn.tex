@@ -1,0 +1,744 @@
+\def\CTeXPreproc{Created by ctex v0.2.14, don't edit!}%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT-LaTeX 编译
+% http://scis.scichina.com
+%-----------------------------------------------------------------------
+
+\documentclass{ctextemp_SCIS2019cn}
+\usepackage{subfigure}
+\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者不需要修改此处信息
+\ArticleType{项目文档}
+%\SpecialTopic{}
+%\Luntan{中国科学院学部\quad 科学与技术前沿论坛}
+\Year{2019}
+\Vol{49}
+\No{1}
+\BeginPage{1}
+\DOI{}
+\ReceiveDate{}
+\ReviseDate{}
+\AcceptDate{}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{京沪高铁列车经停信息前端设计与实现项目文档}{京沪高铁列车经停信息前端设计与实现项目文档}
+
+\entitle{The Design and Implementation Project Document of Beijing-Shanghai High-speed Railway Train Stop Information Front End}{The Design and Implementation Project Document of Beijing-Shanghai High-speed Railway Train Stop Information Front End}
+
+\author[1]{唐麒}{{17301138@bjtu.edu.cn}}
+\author[1]{刘嘉欣}{}
+\author[1]{张雨桐}{}
+\author[1]{张钰铎}{}
+
+\enauthor[1]{Qi Tang}{{17301138@bjtu.edu.cn}}
+\enauthor[1]{Jiaxin Liu}{}
+\enauthor[1]{Yutong Zhang}{}
+\enauthor[1]{Yuduo Zhang}{}
+
+\address[1]{北京交通大学软件学院, 北京，100000}
+
+\enaddress[1]{Beijing Jiaotong University, Beijing {\rm 100000}, China}
+
+
+\AuthorMark{唐麒等}
+
+\AuthorCitation{唐麒，刘嘉欣，张雨桐，等. 2020}
+\enAuthorCitation{Tang Q,Liu J X,Zhang Y T,et al}
+
+\comment{\dag~同等贡献}
+\encomment{\dag~Equal contribution}
+
+\abstract{京沪高速铁路（Beijing-Shanghai High-speed Railway），简称京沪高铁，又名京沪客运专线，是一条连接北京市与上海市的高速铁路，途经北京、天津、上海三个直辖市以及河北、山东、安徽、江苏 四省，连接京津冀和长三角两个经济区域，所经区域面积是中国社会经济发展活跃的地区之一，也是中国客货运输较繁忙、增长潜力较大的客运专线。本项
+目基于~Web 前端开发技术进行京沪高铁列车经停信息查询的前端设计与实现，主要包括绘制路线图，显示站点，点击站点显示全天全部经停列车时刻等基本功能，
+涉及到~HTML、CSS、JavaScript 等技术应用。}
+
+\enabstract{The Beijing-Shanghai High-Speed Railway, referred to as the Beijing-Shanghai High-Speed Railway, also known as the Beijing-Shanghai Passenger Dedicated Line, is a high-speed railway connecting Beijing and Shanghai. It passes through three municipalities directly under the central government of Beijing, Tianjin and Shanghai and four provinces of Hebei, Shandong, Anhui and Jiangsu. It connects the Beijing-Tianjin-Hebei and Yangtze River Delta economic regions. The area covered by the railway is one of the regions with active social and economic development in China and is also a passenger dedicated line with heavy passenger and cargo transportation and great growth potential.  This item
+Objective to design and implement that front-end of train stop information query for Beijing-Shanghai high-speed railway base on Web front-end development technology, which mainly includes basic functions such as drawing a road map, display stations, clicking on the stations to display all the train stop times throughout the day, etc.
+Involving HTML, CSS, JavaScript and other technical applications.}
+
+\keywords{Web 前端开发技术，京沪高铁，HTML，CSS，JavaScript，ECharts}
+
+\enkeywords{Web front-end development technology, Beijing-shanghai high-speed railway, HTML, CSS, JavaScript, ECharts}
+
+\maketitle
+
+\section{系统设计}
+
+京沪高速铁路（Beijing-Shanghai High-speed Railway），简称京沪高铁，又名京沪客运专线，是一条连接北京市与上海市的高速铁路，是~2016 年修订的《中长期铁路网规划 》中“八纵八横”高速铁路主通道之一,
+其所经区域面积是中国社会经济发展活跃的地区之一，也是中国客货运输较繁忙、增长潜力较大的客运专线。本项目基于~Web 前端开发技术，以~HTML、CSS 和~JavaScript 为
+基本技术，综合应用~EChart、SweetAlert 等模板、技术完成对京沪高铁列车经停信息查询的前端设计与实现，主要功能包括路线图绘制、显示站点等。下面我将从项目设
+计的系统目标、总体功能结构和主要技术路线三个方面进行介绍。
+\subsection{系统目标}
+本项目为京沪高铁列车经停信息查询的前端设计与实现，以京沪线和沿线经停高铁列车为主要呈现对象，要求项目设计与实现做到重点突出、导航明确、界面简洁、功能完
+善和观赏性强五个方面。
+
+从需求分析的过程来讲，本项目最核心的功能是完成京沪线及其沿线站点经停高铁列车信息的查询，因此，在进行前端设计的过程中，应重点突出这一功能模块，从视觉感官
+上来讲，该功能模块在页面上的占比，决定着整个页面的功能导向。
+
+此外，京沪铁路不仅在我国铁路网中发挥着不可替代的作用，其建设与营运中所涉及的技术也是国内乃至全球领先的技术，彰显了我国高铁技术的先进水平，所以除了之前提
+到的的主要功能，本项目还旨在发挥京沪线和高铁技术的宣传作用这一角色。
+
+当然，为保证系统的完整性，本项目也实现了注册与登录界面，单一的注册/登录界面显得枯燥乏味且不能体现系统的功能，脱离了系统的完整性。为了避免这一问题，我们浏
+览和查阅了一些经典的注册/登录界面的案例，将注册/登录功能模块化，增加功能相关的动态元素，赋予静态页面以动的美感，同时不脱离系统完整性。
+
+总而言之，本项目主要有注册/登录界面、主界面和基本基本介绍界面三个界面组成，本别承担着用户注册登录、高铁信息查询和基本信息介绍三个功能。在具体实现的过程中，通过
+卡片布局、分栏、侧栏导航等设计方式突出系统的功能，便于用户对系统功能的了解、掌握和使用。
+
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.5]{function.png}
+\cnenfigcaption{系统功能结构图}{System function structure diagram}
+\label{fig1}
+\end{figure}
+
+
+\subsection{系统总体功能}
+系统的页面及功能组成如图~\ref{fig1} 所示. 主要包括注册/登录界面、主界面和基本介绍界面，下面我将对三个界面及其功能进行介绍。
+\subsubsection{注册/登录界面}
+登录注册界面主要由纯~CSS 实现的高铁主题动画和注册登录功能模块组成。左侧是由纯~CSS 实现的高铁动画，契合了系统京沪高铁列车查询功能的主题，将系统功能形象直观地呈现
+给用户，使得系统主题鲜明，功能相关，且动画的形式将静态页面赋予动的美感，不至于使得用户在注册登录过程中感到枯燥乏味。
+
+右侧则是以卡片布局承载的注册/登录模块。这一模块以卡片布局的方式呈现，将页面的主要功能模块凸显出来，使得用户在使用系统时既能注意到主题动画，又不至于感到功能不
+突出，从而体现了系统的重点突出和观赏性强的特点。
+
+\subsubsection{主界面}
+主界面主要有顶部、中部和底部三部分组成，其中顶部主要体现了系统的开发和所属单位，底部表明了作者信息和系统声明，而中部则是主界面的功能模块——京沪高铁列车信息
+查询模块。
+该功能模块以卡片布局和部分中国地图的形式为承载，将京沪线沿线省份突出显示，并将沿线各站标出，直观明了地将京沪线及其站点信息呈现给用户，而将列车信息隐藏与站点
+中，突出了系统重点突出、功能完善、界面简洁和观赏性强的特点。
+此外，页面顶部的页面导航将系统的页面进行串联，体现了系统功能晚上和导航明确的特点。
+\subsubsection{基本介绍界面}
+基本介绍页面同样分为顶部、中部和底部三部分，其中顶部主要体现了系统的开发和所属单位，底部表明了作者信息和系统声明，而中部则是基本介绍面的功能模块——京沪高铁列车信息
+介绍模块。
+
+该模块利用~Div 格局嵌套，将一个矩形进行区域切分，主要包括轮播图和文字介绍两部分。其中轮播图通过图片和循环滚动的方式，减少纯文字的枯燥，同时以直观的形式将京沪铁路的基本
+信息传递给用户，而文字部分蕴含的信息和数据更加详实、准确，二者相辅相成、相得益彰。而大量的文字内容也不易于用户阅读，因此，我们通过添加侧边导航栏的方式提高阅读的便利
+性，体现了系统易于导航和格局明确的特点。
+
+系统的页面布局如图~\ref{fig2} 所示.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.5]{org.png}
+\cnenfigcaption{系统组织结构图}{System organization chart}
+\label{fig2}
+\end{figure}
+
+\newpage
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.5]{teck.png}
+\cnenfigcaption{系统技术路线图}{System Technology Roadmap}
+\label{fig3}
+\end{figure}
+
+\subsection{系统技术路线}
+本项目的开发从软件工程生命周期的角度来看，分为需求分析、总体设计、详细设计、代码实现和系统测试五个部分，系统的技术路线如图~\ref{fig3} 所示.
+
+\subsubsection{系统开发生命周期}
+正如之前所提到的，在需求分析阶段，我们明确项目目的是前端设计与实现，呈现主题是京沪线及沿线车站高铁列车经停信息，整个项目以实现系统的完整性、美观性、功能性和明确性为
+基本要求。
+
+根据软件工程的分层思想，在总体设计阶段，对以上功能进行页面的划分和功能的扩展，根据功能划分为注册/登录界面、主界面和基本介绍界面，分别承担注册/登录功能、列车站点查询功能和基本信息
+介绍功能，通过跳转、页面导航的方式降低功能之间的耦合性，增强每个功能模块的内聚性。同样，在每个页面中，通过~Div 分栏对功能进行分层，进一步降低细化功能间的耦合性。
+
+在详细设计阶段，处于软件服务于用户的思想，将项目进行功能细化和界面美化，力求做到功能完善和浑然一体，界面简洁明确和具有较强的观赏性。以主界面为例，具体表现为突出展示
+京沪铁路及其沿线省份，是用户对线路及站点信息一目了然，且通过自定义~Alert 对话框，优化展示界面和信息展示方式，给人以美的享受。
+
+在代码实现阶段，采用软件工程演化过程模型，先进型原型开发，在完成原型的基础上不断迭代，知道实现初期设计要求。
+
+在测试阶段，在完成单元测试的基础上进行集成测试和系统测试。
+
+\subsubsection{系统开发主要技术}
+
+在项目的实际开发中，主要采用了~HTML、CSS、JavaScript 等前端开发技术，而线路图的绘制和列车时刻的显示主要采用~ECharts 和~SweetAlert.
+
+HTML(Hypertext Markup Language) 是超文本标记语言。它是一种标记语言，而不是编程语言。网页的内容包括标题、段落、表格、表单等。级联样式表~(Cascading Style Sheet, CSS)，也称为层叠样式表。在设计~Web 网页时采用~CSS 技术，可以有效地对页面的布局、字体、颜色和其他效果实现更加精确的控制。采用~CSS 技术是为了解决网页内容与表现分离的问题。CSS
+语言是一种标记语言，不需要编译，属于浏览器解释型语言，可以直接由浏览器解释执行。在~HTML 的基础上，使用~JavaScript 可以开发交互式~Web 页面。JavaScript 的出现使得网页和用户之间
+实现了一种实时性的、动态的、交互性的关系，是网页包含更多活跃元素和冯家精彩的内容。它是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。
+
+此外，采用~ECharts 和~jQuery 进行线路和站点绘制。ECharts 提供了丰富的可视化类型: 如常规的折线图、柱状图，用于统计的盒形图，用于地理数据可视化的地图、热力图、线图，用于关系数据可视化的关系图等，
+并且支持图与图之间的混搭。通过增量渲染技术，配合各种细致的优化，ECharts 能够展现千万级的数据量。而且还针对移动端交互做了细致的优化，例如移动端小屏上适于用手指在坐标系中进行缩放、平移。 PC 端也可以用鼠标在图中进行缩放（用鼠标滚轮）、平移等。
+
+而站点高铁列车时刻的显示则借助了~SweetAlert。SweetAlert 是一款不需要 ~jQuery 支持的原生 ~js 提示框, 风格类似 ~bootstrap。SweetAlert 允许通过~HTML、CSS 和~JavaScript 自定义，支持设置提示框标题、提示类型、内容展示图片、确认取消按钮文本、点击后回调函数等。
+
+在实现静态页面的基础上，进一步利用~CSS3 的~keyframes 等属性，添加动态动画，将静态页面赋予灵动。
+
+\subsubsection{系统开发设计模式}
+在系统开发的设计模式上，借助组合模式的设计思想，将系统功能模块组合成树形结构（如图~\ref{fig1} 所示）以表示“整体~- 部分”的层次结构关系。组合是的对每个功能模块和符合功能模块的使用具有一致性。具体
+表现为页面中能的划分和功~Div 分块的使用，既使得系统页面浑然一体，也保证了每个功能模块的独立性和可复用性。
+
+
+\section{系统实现}
+正如上文提到的，系统页面主要由注册/登录界面、主界面和基本介绍界面（如图~\ref{fig2} 所示）组成，而系统的开发过程包括需求分析、总体设计、详细设计、代码实现和系统测试五个阶段（如图~\ref{fig3} 所示）。
+在这一部分，我将具体介绍系统的设计实现过程、关键技术、关键代码、主要设计页面截图以及效果说明等。
+
+\subsection{实现过程}
+\begin{minipage}[b]{0.65\linewidth}
+ \setlength{\parindent}{2em}
+该项目的实现过程主要按照项目的生命周期来进行，因为需求分析和总体设计以及详细设计在之前的部分中已经进行过详细说明，在这里就不再重复介绍了。这一部分将着重介绍代码实现部分。
+由于项目分为三个页面，所以代码实现主要也由三部分构成，即注册/登录界面、主界面和基本介绍界面。下面我们来依次介绍。
+\par
+\setlength{\parindent}{2em}
+ 注册/登录界面（如图~\ref{fig11} a 所示）由纯~CSS 实现的高铁动画和基于卡片布局的注册/登录模块组成。高铁动画先有~CSS 设计出静态图片样式，再通过~keyframes,transition 等实现静态样式的动态表现。而注册/登录模块
+ 通过~JavaScript 实现了密码的隐藏、邮箱和手机号的合法性检验等基本功能。
+ \par
+ \setlength{\parindent}{2em}
+ 注册登录后经由加载界面跳转到主界面（如图~\ref{fig11} b 所示），主界面通过~Div 设计格局为三行一列，其中主要部分为中部的地图功能模块。该模块通过~ECharts 绘制中国地图，再通过高亮颜色和~CSS 定位突出显示京沪线
+ 沿线各省（如图~\ref{fig4} 所示），接着通过~ECharts 绘制沿线各点和线路，定义~JavaScript 函数，当鼠标悬浮坐标为沿线城市时，显示当前城市站点名称，当鼠标点击坐标为沿线城市时，弹出~SweetAlert 自定义的
+ 对话框，显示当天停靠列车信息。
+
+ \par
+ \setlength{\parindent}{2em}
+ 在主界面的标题栏旁边设计了系统页面导航，通过该链接可进行主界面和基本介绍界面的跳转。基本介绍界面（如图~\ref{fig11} c 所示）大体上保持了与主界面一致的三行一列的布局，在中间一栏再次通过多个~Div 进行布局嵌套和管理，
+ 主要为左侧的介绍栏和右侧的文字导航栏，以及左侧内部的图片轮播和文字板块。自定义~JavaScript 函数实现图片走马灯效果，化静为动，化抽象为形象。借助~DOM 定位文字内容，实现侧边文字导航栏功能。
+
+ \par
+ \setlength{\parindent}{2em}
+ 此外，在主要页面的底部，利用多种~HTML,CSS,JavaScript 等基本技术实现系统功能，如邮件和多媒体超链接，底部栏时间动态显示等，不再赘述。
+
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.35\linewidth}
+\includegraphics[scale=0.6]{timeline.png}
+\end{minipage}
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics[scale=0.5]{1.png}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics[scale=0.5]{2.png}
+\end{minipage}
+\cnenfigcaption{线路及站点设计实现过程}{Design and Implementation Process of Lines and Stations}
+\label{fig4}
+\end{figure}
+
+\subsection{关键技术}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{technology.png}
+\cnenfigcaption{系统主要技术图}{Main technical drawings of the system}
+\label{fig5}
+\end{figure}
+
+\newpage
+
+\subsection{关键代码}
+注意：由于篇幅所限，部分代码在文中省去
+
+\subsubsection{地图渲染}
+\begin{figure}[H]
+\centering
+\includegraphics{map.png}
+\cnenfigcaption{地图渲染代码}{Map rendering code}
+\label{fig6}
+\end{figure}
+
+\subsubsection{绘制路线}
+\begin{figure}[H]
+\centering
+\includegraphics{lx1.png}
+\cnenfigcaption{绘制路线代码~(部分)}{Draw route code(Part)}
+\label{fig7}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics{lx2.png}
+\cnenfigcaption{绘制路线代码~(续)}{Draw route code(Continue)}
+\label{fig8}
+\end{figure}
+
+\newpage
+
+\subsubsection{列车时刻}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{time.png}
+\cnenfigcaption{显示时刻代码}{Show time code}
+\label{fig9}
+\end{figure}
+
+
+\subsubsection{火车动画}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{train.png}
+\cnenfigcaption{动态火车代码}{Dynamic train code}
+\label{fig10}
+\end{figure}
+
+
+\subsection{页面及效果说明}
+
+
+\begin{figure*}[h]
+\centering
+\subfigure[注册/登录界面]{
+    \begin{minipage}[t]{0.33\linewidth}
+        \centering
+        \includegraphics[width=2in]{02.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{03.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{04.png}\\
+        \vspace{0.02cm}
+        %\caption{fig1}
+    \end{minipage}%
+}%
+\subfigure[主界面]{
+    \begin{minipage}[t]{0.33\linewidth}
+        \centering
+        \includegraphics[width=2in]{05.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{06.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{07.png}\\
+        \vspace{0.02cm}
+        %\caption{fig1}
+    \end{minipage}%
+}%
+\subfigure[基本介绍界面]{
+    \begin{minipage}[t]{0.33\linewidth}
+        \centering
+        \includegraphics[width=2in]{08.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{09.png}\\
+        \vspace{0.02cm}
+        \includegraphics[width=2in]{10.png}\\
+        \vspace{0.02cm}
+        %\caption{fig1}
+    \end{minipage}%
+}%
+\centering
+\vspace{-0.2cm}
+\cnenfigcaption{页面及效果说明}{Page and Effect Description}
+\label{fig11}
+\end{figure*}
+
+页面布局及技术实现已经在之前详细介绍，在此就不再赘述，主要界面如图~\ref{fig11} 所示，从图中可以看出之前介绍过的注册/登录界面中火车动画及密码隐藏和邮箱、电话合法性检验详细，详细可
+访问~\url{http://tang5618.com/Project/html/SignIn.html}
+
+
+\section{学习心得}
+初接触~Web 前端开发技术，学到了关于~URL 和计算机网络的相关协议，仿佛给我打开了一扇计算机世界新的大门。随着学习的深入，慢慢接触了~HTML 的语言规范，也学会了~CSS 对~HTML 页面的渲染和通过定义~JavaScript 函数与用户进行交互实现更多的功能。正如之前所说，Web 前端开发不是一门独立的学科，在我学习的过程中，我认为他与计算机网络，爬虫，用户界面设计与评价等课程的知识体系相互交织着。当我把一个含有文件下载的超链接部署在服务器的过程中，我学会了用~HTML 定义页面内容，用~CSS 对页面进行渲染和美化，用~JavaScript 实现其他编程语言也能实现的逻辑功能，用计算机网络的~HTTP 协议和~TCP 协议等进行数据传输……不仅如此，在学习了~Web 前端开发技术后，我会对日常中生活中遇到的设计良好的网页进行源码爬取和学习，也会根据网页返回的状态码进行排错和调试。
+\par
+\setlength{\parindent}{2em}当然，课堂学习的知识是有限的，Web 前端设计知识的学习不能止步于此，在大项目的开发过程中，将软件工程的思想运用于项目开发中不仅使我对项目的开发驾轻就熟，而且也发现了相关知识体系的不足与漏洞。例如，大量的~HTML 文件和~CSS 文件以及~JavaScript 文件如何进行结构管理，整个项目开发是否有更加通用、敏捷的开发框架？这些问题在我进行项目开发的过程中得到了答案。Vue.js 是很多生产场景中应用的开发框架，由于时间和学习成本的问题，很遗憾没有运用在本次项目中。但是，除此以外，还有很多很好的开源项目，如本次用到的~ECharts、SweetAlert 等，都值得我进一步去学习。
+
+\begin{flushright}
+\textbf{唐麒}
+\end{flushright}
+
+本学期初次接触到了~web 前端开发，每节课跟着老师一起读课本，确实收获很大很多知识点更有印象，能够弥补我之前上课很少看课本的缺点，每节课相应的小练习都很有成就感。本学期利用前端项目开发完成了两个大作业，一个是数据库实践中的合同管理系统，我负责前端开发部分，一个是我们的京沪高铁列车经停信息前端开发，html、css、div、JavaScript 的使用，如何用~css 将页面渲染的更加美观，在开发过程中，我一直把用户使用友好放在重要位置，一个让用户看起来舒服的页面，操作方便简介明确，可以用下拉框代替用户输入等。但在两个大项目开发中能够明显感觉到之前自己所用知识的不足需要学习新的知识，例如~vue 框架、bootstrap、解决跨域问题等知识的学习使用。在这次小组作业的开发中我们利用了新的~echart 实现全国地图的绘制、动态路线绘制、星标站点等，这些都是新的尝试也会经历很多次失败的尝试。在开发过程中一个小小的点可能需要我们讨论很久，比如京沪高铁线路颜色和附近省份的颜色设置，看似很小的问题，但要实现用户友好我们进行了很多试验，前端开发对我个人而言比较有成就感，也清醒的认识到前端开发绝非易事需要前期的原型设计在实现过程中改进最初的想法，有些设计想起来很容易但在实际开发中会遇到各种问题，需要更细致的或者新的知识来帮助我们实现。总之，16 周的~web 前端技术开发我学到不少之后也还要进行更深入的学习。
+\begin{flushright}
+\textbf{刘嘉欣}
+\end{flushright}
+
+\par
+\setlength{\parindent}{2em}这学期选了~web 前端开发设计，有很多感悟。首先，我对~web 前端开发设计有浓厚的兴趣，web 前端开发技术不只局限于网页设计，不再只是承载单一的文字和图片，软件化的交互形式为用户提供了更好的使用体验，同时它是一门概念性较强的交互式设计, 艺术性较强的视觉设计。其次，通过老师基于仔细研读课本内容的上课方式和配合教学内容的作业，我在~web 前端开发过程中也有了一些学习~web 的心得。
+\begin{itemize}
+\item [(1)]一定要重视基础
+\par
+首先建立第一条技能线，前端由~HTML,CSS,JavaScript 组成；然后将其细化为第二条线，HTML 是由~HTML4 和~HTML5 组成；第三条线，CSS 由~CSS2 和~CSS3 组成；第四条线，JavaScript 由~es5 和~es6 构成。
+接下来是框架方面的延伸：CSS 方向有~less，HTML 方向有~bootstrap，js 方向有~jquery 库
+再往下延伸一层：HTML,CSS 方向，有前端构建工具；js 除了~jq 库之外，还有更全面的前端框架，react,angular,vue。前端知识点细小繁多，很多同学可能会摸不到头脑，不知道从哪里下手，其实掌握好基础而不是盲目的去贪多才是学习~web 的基础。
+\item [(2)]注重实践
+\par
+在老师~12 次作业中，我深刻体会到设计一个网页的不易。首先要明确网页或网站的主题，围绕主题收集资料。其次，要考虑每一个布局，即使是一个很小的功能也要注重用户的友好性。最后，细化网页的过程要将我们所学的知识综合在一起，不断改进，才能有一个较好的结果。Web 知识点细小很杂，只有在实践中不断运用，才能真正掌握。
+\item [(3)]不断改进，综合运用
+\par
+前端不简单的地方，并不在于知识点的掌握，技术的实现，而在于寻找更优解。即使是最简单的页面布局，也存在层出不穷的优秀解决方案。这在最后的大作业中我深有体会。京沪铁路线路图，用传统的~html 语言也可以达成，但在美观程度和复杂程度上都不理想，于是我们小组学习了~echart 知识，又将它与所学的~html,CSS,js 知识结合起来，最终才完成了比较满意的京沪铁路查询网站。
+\par
+最后，关于张大林老师课堂方式，我认为回归课本是一种非常好的教学方式，可以让同学们对基础知识有更深刻的了解，根据课堂内容布置作业也很有利于大家掌握所学知识。希望大林老师的~web 课越来越受同学们喜欢！
+\end{itemize}
+
+\begin{flushright}
+\textbf{张雨桐}
+\end{flushright}
+
+在本节课中，我学习到了很多，对~javascript，css 以及~html 也有了更加深层次的了解，也对~web 前端技术的结构有了更加完整的认识。我很喜欢老师的上课方式，带着大家看书却是弥补了我们现在很少看书的问题。我觉得老师应该花更少的时间在和大家讨论每一段代码的作用上，应该为我们拓展更多的知识，这样上课总觉得浪费了时间。而且这样上课总觉得对知识的掌握还不够，虽然每一次的作业都是在上课后再把代码敲出来进行实践，但还是总觉得好多知识都记不住，实际的操作还不够。这节课上学习的东西在未来的学习中一定还会用到很多，很多的项目都会使用网页，我认为设计一个很漂亮的网页会让人的心情舒畅，是一件很开心的事情，所以我还是很喜欢做网页的。这学期我们在数据库实践课的项目上就使用了一些网页的技术，在答辩的时候，我就觉得一个漂亮的前端网页会使人眼前一亮，结合强大的后台算法技术一定会是一个很成功的项目，会是大学生活中很自豪的一个项目。最后，建议老师继续督促大家认真看书，获取知识，也希望以后的教学中会督促大家做更多的实践，加强大家对代码的记忆使大家可以更好的设计出自己的漂亮的网页。这学期在大林老师的带领下学习~web 知识真的很开心，学到的东西也很丰富且实用，谢谢老师，一切祝好。
+
+\begin{flushright}
+\textbf{张钰铎}
+\end{flushright}
+
+
+
+
+
+
+
+%\subsection{二级标题}
+%表格如表\ref{tab1}所示.
+%\begin{table}[!t]
+%\cnentablecaption{表题}{Caption}
+%\label{tab1}
+%\footnotesize
+%\tabcolsep 49pt %space between two columns. 用于调整列间距
+%\begin{tabular*}{\textwidth}{cccc}
+%\toprule
+%  Title a & Title b & Title c & Title d \\\hline
+%  Aaa & Bbb & Ccc & Ddd\\
+%  Aaa & Bbb & Ccc & Ddd\\
+%  Aaa & Bbb & Ccc & Ddd\\
+%\bottomrule
+%\end{tabular*}
+%\end{table}
+
+%\subsubsection{三级标题}
+%算法如算法\ref{alg1}所示.
+%\begin{algorithm}
+%\floatname{algorithm}{Algorithm}%更改算法前缀名称
+%\renewcommand{\algorithmicrequire}{\textbf{输入:}}% 更改输入名称
+%\renewcommand{\algorithmicensure}{\textbf{主迭代:}}% 更改输出名称
+%\newcommand{\LASTCON}{\item[\algorithmiclastcon]}
+%\newcommand{\algorithmiclastcon}{\textbf{输出:}}% 更改输出名称
+%\footnotesize
+%\caption{算法标题}
+%\label{alg1}
+%\begin{algorithmic}[1]
+ %   \REQUIRE $n \geq 0 \vee x \neq 0$;
+%    \ENSURE $y = x^n$;
+%    \STATE $y \Leftarrow 1$;
+%    \IF{$n < 0$}
+%        \STATE $X \Leftarrow 1 / x$;
+%        \STATE $N \Leftarrow -n$;
+ %   \ELSE
+%        \STATE $X \Leftarrow x$;
+%        \STATE $N \Leftarrow n$;
+%    \ENDIF
+%    \WHILE{$N \neq 0$}
+%        \IF{$N$ is even}
+%            \STATE $X \Leftarrow X \times X$;
+%            \STATE $N \Leftarrow N / 2$;
+%        \ELSE[$N$ is odd]
+%            \STATE $y \Leftarrow y \times X$;
+%            \STATE $N \Leftarrow N - 1$;
+%        \ENDIF
+%    \ENDWHILE
+%    \LASTCON
+%\end{algorithmic}
+%\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 致谢
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\Acknowledgements{致谢.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料说明
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\Supplements{补充材料.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 参考文献, {}为引用的标签, 数字/字母均可
+%%% 文中上标引用: \upcite{1,2}
+%%% 文中正常引用: \cite{1,2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+
+\bibitem{1} 李蝶, 李功权, 马云龙, et al. 美丽乡村专题统计数据的可视化及其地图渲染~[J]. 计算机与数字工程, 2018, 46(10):156-160.
+
+\bibitem{2} 杨绪成. 高速铁路运营期精测网复测及沉降监测信息管理系统开发研究~[J]. 铁道勘察, 2018, 44(05):21-24.
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 附录章节, 自动从A编号, 以\section开始一节
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{appendix}
+%\section{附录}
+%附录从这里开始.
+%\begin{figure}[H]
+%\centering
+%%\includegraphics{fig1.eps}
+%\cnenfigcaption{附录里的图}{Caption}
+%\label{fig1}
+%\end{figure}
+%\end{appendix}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 自动生成英文标题部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeentitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 主要作者英文简介, 数量不超过4个
+%%% \authorcv[zp1.eps]{Ming XING}{was born in ...}
+%%% [照片文件名]请提供清晰的一寸浅色背景照片, 宽高比为 25:35
+%%% {姓名}与英文标题处一致
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcv[tq.jpg]{Qi Tang}{Bachelor's degree, studying in the School of Software Engineering, Beijing Jiaotong University, is mainly responsible for requirements analysis,framework construction, interface design,implementation and organization in this project.
+\\
+17301138@bjtu.edu.cn \& 18813075618}
+
+\authorcv[ljx.jpg]{JiaXin Liu}{Bachelor's degree, studying in the School of Software Engineering, Beijing Jiaotong University, is mainly responsible for map design and implementation, route drawing, data collection and interface evaluation in this project.
+\\
+17301128@bjtu.edu.cn \& 13311396785}
+
+%\vspace*{6mm} % 调整照片行间距
+
+\authorcv[zyt.jpg]{Yutong Zhang}{Bachelor's degree, studying in the School of Software Engineering, Beijing Jiaotong University, is mainly responsible for map design and implementation, route drawing, data collection and interface design in this project.
+\\
+17301144@bjtu.edu.cn \& 18811012208}
+
+\authorcv[zyd.jpg]{Yuduo Zhang}{Bachelor's degree, studying in the School of Software Engineering, Beijing Jiaotong University, is mainly responsible for the design, implementation, evaluation and documentation of the introduction interface.
+\\
+17301145@bjtu.edu.cn \& 15001094100}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料, 以附件形式作网络在线, 不出现在印刷版中
+%%% 不做加工和排版, 仅用于获得图片和表格编号
+%%% 自动从I编号, 以\section开始一节
+%%% 可以没有\section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{supplement}
+%\section{supplement1}
+%自动从I编号, 以section开始一节.
+%\begin{figure}[H]
+%\centering
+%\includegraphics{fig1.eps}
+%\cnenfigcaption{补充材料里的图}{Caption}
+%\label{fig1}
+%\end{figure}
+%\end{supplement}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 本模板使用的latex排版示例
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 章节
+\section{}
+\subsection{}
+\subsubsection{}
+
+
+%%% 普通列表
+\begin{itemize}
+\item Aaa aaa.
+\item Bbb bbb.
+\item Ccc ccc.
+\end{itemize}
+
+%%% 自由编号列表
+\begin{itemize}
+\itemindent 4em
+\item[(1)] Aaa aaa.
+\item[(2)] Bbb bbb.
+\item[(3)] Ccc ccc.
+\end{itemize}
+
+%%% 定义、定理、引理、推论等, 可用下列标签
+%%% definition 定义
+%%% theorem 定理
+%%% lemma 引理
+%%% corollary 推论
+%%% axiom 公理
+%%% propsition 命题
+%%% example 例
+%%% exercise 习题
+%%% solution 解名
+%%% notation 注
+%%% assumption 假设
+%%% remark 注释
+%%% property 性质
+%%% []中的名称可以省略, \label{引用名}可在正文中引用
+\begin{definition}[定义名]\label{def1}
+定义内容.
+\end{definition}
+
+
+
+%%% 单图
+%%% 可在文中使用图\ref{fig1}引用图编号
+\begin{figure}[!t]
+\centering
+\includegraphics{function.png}
+\cnenfigcaption{系统功能结构图}{System function structure diagram}
+\label{fig1}
+\end{figure}
+
+%%% 并排图
+%%% 可在文中使用图\ref{fig1}、图\ref{fig2}引用图编号
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig2.eps}
+\end{minipage}\\[3mm]
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题~1}{Caption1}
+\label{fig1}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题~2}{Caption2}
+\label{fig2}
+\end{minipage}
+\end{figure}
+
+%%% 并排子图
+%%% 需要英文分图题 (a)...; (b)...
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig2.eps}
+\end{minipage}
+\cnenfigcaption{中文图题}{Caption}
+\label{fig1}
+\end{figure}
+
+%%% 算法
+%%% 可在文中使用 算法\ref{alg1} 引用算法编号
+\begin{algorithm}
+%\floatname{algorithm}{Algorithm}%更改算法前缀名称
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}% 更改输入名称
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}% 更改输出名称
+\footnotesize
+\caption{算法标题}
+\label{alg1}
+\begin{algorithmic}[1]
+    \REQUIRE $n \geq 0 \vee x \neq 0$;
+    \ENSURE $y = x^n$;
+    \STATE $y \Leftarrow 1$;
+    \IF{$n < 0$}
+        \STATE $X \Leftarrow 1 / x$;
+        \STATE $N \Leftarrow -n$;
+    \ELSE
+        \STATE $X \Leftarrow x$;
+        \STATE $N \Leftarrow n$;
+    \ENDIF
+    \WHILE{$N \neq 0$}
+        \IF{$N$ is even}
+            \STATE $X \Leftarrow X \times X$;
+            \STATE $N \Leftarrow N / 2$;
+        \ELSE[$N$ is odd]
+            \STATE $y \Leftarrow y \times X$;
+            \STATE $N \Leftarrow N - 1$;
+        \ENDIF
+    \ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+%%% 简单表格
+%%% 可在文中使用 表\ref{tab1} 引用表编号
+\begin{table}[!t]
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\footnotesize
+\tabcolsep 49pt %space between two columns. 用于调整列间距
+\begin{tabular*}{\textwidth}{cccc}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+%%% 换行表格
+\begin{table}[!t]
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\footnotesize
+\def\tabblank{\hspace*{10mm}} %blank leaving of both side of the table. 左右两边的留白
+\begin{tabularx}{\textwidth} %using p{?mm} to define the width of a column. 用p{?mm}控制列宽
+{@{\tabblank}@{\extracolsep{\fill}}cccp{100mm}@{\tabblank}}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.
+
+  Ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%%% 单行公式
+%%% 可在文中使用 (\ref{eq1})式 引用公式编号
+%%% 如果是句子开头, 使用 公式(\ref{eq1}) 引用
+\begin{equation}
+A(d,f)=d^{l}a^{d}(f),
+\label{eq1}
+\end{equation}
+
+%%% 不编号的单行公式
+\begin{equation}
+\nonumber
+A(d,f)=d^{l}a^{d}(f),
+\end{equation}
+
+%%% 公式组
+\begin{eqnarray}
+\nonumber
+&X=[x_{11},x_{12},\ldots,x_{ij},\ldots ,x_{n-1,n}]^{\rm T},\\
+\nonumber
+&\varepsilon=[e_{11},e_{12},\ldots ,e_{ij},\ldots ,e_{n-1,n}],\\
+\nonumber
+&T=[t_{11},t_{12},\ldots ,t_{ij},\ldots ,t_{n-1,n}].
+\end{eqnarray}
+
+%%% 条件公式
+\begin{eqnarray}
+\sum_{j=1}^{n}x_{ij}-\sum_{k=1}^{n}x_{ki}=
+\left\{
+\begin{aligned}
+1,&\quad i=1,\\
+0,&\quad i=2,\ldots ,n-1,\\
+-1,&\quad i=n.
+\end{aligned}
+\right.
+\label{eq1}
+\end{eqnarray}
+
+%%% 其他格式
+\footnote{Comments.} %footnote. 脚注
+\raisebox{-1pt}[0mm][0mm]{xxxx} %put xxxx upper or lower. 控制xxxx的垂直位置
+
+%%% 图说撑满
+\Caption\protect\linebreak \leftline{Caption}
+1 
